@@ -1,6 +1,6 @@
 {
   "name": "jaygothi/repository-pattern-jay",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Criteria based repository pattern",
   "authors": [
     {
@@ -16,5 +16,6 @@
     "psr-4": {
       "vendor\\repository-pattern-jay\\": "src/"
     }
-  }
+  },
+  "minimum-stability": "dev"
 }
