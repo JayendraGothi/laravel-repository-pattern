@@ -1,12 +1,12 @@
 <?php
 
-namespace RepositoriesPattern\Abstracts;
+namespace Reva\RepositoryPattern\Library\Abstracts;
 
 
-use RepositoriesPatter\Contracts\Criteria;
-use RepositoriesPattern\CommonCriteria\WhereFilter;
-use RepositoriesPattern\CommonCriteria\WithFilter;
-use RepositoriesPattern\Service;
+use Reva\RepositoryPattern\Library\Contracts\Criteria;
+use Reva\RepositoryPattern\Library\CommonCriteria\WhereFilter;
+use Reva\RepositoryPattern\Library\CommonCriteria\WithFilter;
+use Reva\RepositoryPattern\Library\Service;
 
 class CriteriaBuilder {
 

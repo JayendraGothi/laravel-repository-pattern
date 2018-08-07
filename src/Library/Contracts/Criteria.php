@@ -1,6 +1,6 @@
 <?php
 
-namespace RepositoriesPatter\Contracts;
+namespace Reva\RepositoryPattern\Library\Contracts;
 
 
 use Illuminate\Database\Eloquent\Builder;

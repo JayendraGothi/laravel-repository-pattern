@@ -1,12 +1,12 @@
 <?php
 
-namespace RepositoriesPattern;
+namespace Reva\RepositoryPattern\Library;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
-use RepositoriesPatter\Exceptions\RepositoryException;
-use RepositoriesPattern\Abstracts\CriteriaBuilder;
-use RepositoriesPattern\Contracts\RepositoryContract;
+use Reva\RepositoryPattern\Library\Abstracts\CriteriaBuilder;
+use Reva\RepositoryPattern\Library\Contracts\RepositoryContract;
+use Reva\RepositoryPattern\Library\Exceptions\RepositoryException;
 
 /**
  * Class RepositoryAbstract
@@ -15,6 +15,11 @@ use RepositoriesPattern\Contracts\RepositoryContract;
  */
 abstract class Repository implements RepositoryContract {
 
+    /**
+     * Entity
+     *
+     * @var \Illuminate\Database\Eloquent\Builder
+     */
     private $entity;
 
     /**

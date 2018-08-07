@@ -1,11 +1,11 @@
 <?php
 
-namespace RepositoriesPattern;
+namespace Reva\RepositoryPattern\Library;
 
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Facades\Log;
-use RepositoriesPattern\Contracts\ServiceContract;
+use Reva\RepositoryPattern\Library\Contracts\ServiceContract;
 
 /**
  * Class ServiceAbstract

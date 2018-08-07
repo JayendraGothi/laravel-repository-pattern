@@ -1,9 +1,9 @@
 <?php
 
-namespace RepositoriesPattern\CommonCriteria;
+namespace Reva\RepositoryPattern\Library\CommonCriteria;
 
 use Illuminate\Database\Eloquent\Builder;
-use RepositoriesPatter\Contracts\Criteria;
+use Reva\RepositoryPattern\Library\Contracts\Criteria;
 
 class WhereFilter implements Criteria {
 

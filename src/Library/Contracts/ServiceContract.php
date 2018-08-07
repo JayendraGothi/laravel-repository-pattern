@@ -1,9 +1,8 @@
 <?php
 
-namespace RepositoriesPattern\Contracts;
+namespace Reva\RepositoryPattern\Library\Contracts;
 
-
-use RepositoriesPattern\Abstracts\CriteriaBuilder;
+use Reva\RepositoryPattern\Library\Abstracts\CriteriaBuilder;
 
 interface ServiceContract {
 

@@ -1,5 +1,5 @@
 {
-  "name": "jaygothi/repository-pattern-jay",
+  "name": "reva/laravel-criteria-based-repository-pattern",
   "version": "0.0.1",
   "description": "Criteria based repository pattern",
   "keywords": [
@@ -22,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "RepositoriesPattern\\": "src/"
+      "Reva\\RepositoryPattern\\": "src/"
     }
   },
   "minimum-stability": "dev"

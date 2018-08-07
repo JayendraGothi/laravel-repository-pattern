@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Repositories\Folder;
+
+use DummyFullModelClass
+use Reva\RepositoryPattern\Library\Repository;
+
+/**
+ * Class AddressRepository
+ *
+ * @package App\Repositories\Address
+ */
+class DummyClass extends Repository {
+
+    /**
+     * Set entity (Model)
+     *
+     * @return mixed
+     */
+    public function entity() {
+        return DummyModelClass::class;
+    }
+}
