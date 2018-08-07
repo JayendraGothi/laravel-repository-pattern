@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "vendor\\repository-pattern-jay\\": "src/"
+      "RepositoriesPattern\\": "src/RepositoriesPattern/"
     }
   },
   "minimum-stability": "dev"
