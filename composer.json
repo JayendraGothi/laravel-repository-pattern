@@ -2,6 +2,7 @@
   "name": "jaygothi/repository-pattern-jay",
   "version": "0.0.1",
   "description": "Criteria based repository pattern",
+  "license": "MIT",
   "authors": [
     {
       "name": "Jayendra Gothi",
