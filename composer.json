@@ -25,5 +25,12 @@
       "Reva\\RepositoryPattern\\": "src/"
     }
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Reva\\RepositoryPattern\\Providers\\ConsoleSupportServiceProvider"
+      ]
+    }
+  },
   "minimum-stability": "dev"
 }
