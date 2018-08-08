@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputOption;
 
 class ServiceMakeCommand extends GeneratorCommand {
+
     /**
      * The console command name.
      *
@@ -47,12 +48,13 @@ class ServiceMakeCommand extends GeneratorCommand {
     protected function createRepository() {
 
         // get model class
-        $modelClass = $this->parseModel($this->option('model'));
+        $modelClass = $this->option('model');
 
         // call repository command
         $this->call('reva:repository', [
-            'name' => "{$modelClass}Repository",
+            'name' => class_basename($modelClass) . "Repository",
             '--model' => $modelClass,
+            '--folder' => $this->option('folder')
         ]);
     }
 
@@ -80,7 +82,7 @@ class ServiceMakeCommand extends GeneratorCommand {
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {
-        return $rootNamespace . '\Services';
+        return $rootNamespace . '\Services\\' . $this->option('folder');
     }
 
     /**
@@ -90,7 +92,7 @@ class ServiceMakeCommand extends GeneratorCommand {
      * @return string
      */
     protected function getRepositoryNamespace($rootNamespace) {
-        return $rootNamespace . '\Repositories';
+        return $rootNamespace . 'Repositories';
     }
 
     /**
@@ -125,11 +127,8 @@ class ServiceMakeCommand extends GeneratorCommand {
     protected function buildRepositoryReplacements(array $replace) {
         $repositoryClass = $this->parseRepository($this->option('model'));
 
-        if (!class_exists($repositoryClass)) {
-            $this->error("A {$repositoryClass} model does not exist. Please create one.", true);
-        }
-
         return array_merge($replace, [
+            'Folder' => $this->option('folder'),
             'DummyFullRepositoryClass' => $repositoryClass,
             'DummyRepositoryClass' => class_basename($repositoryClass)
         ]);
@@ -165,6 +164,7 @@ class ServiceMakeCommand extends GeneratorCommand {
             throw new InvalidArgumentException('Model name contains invalid characters.');
         }
 
+        $model = "Models/{$this->option('folder')}/". $model;
         $model = trim(str_replace('/', '\\', $model), '\\');
 
         if (!Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
@@ -185,10 +185,11 @@ class ServiceMakeCommand extends GeneratorCommand {
             throw new InvalidArgumentException('Model name contains invalid characters.');
         }
 
+        $repository = "{$this->option('folder')}/". $repository;
         $repository = trim(str_replace('/', '\\', $repository), '\\');
 
         if (!Str::startsWith($repository, $rootNamespace = $this->getRepositoryNamespace($this->laravel->getNamespace()))) {
-            $repository = $rootNamespace . $repository . 'Repository';
+            $repository = $rootNamespace . '\\' . $repository . 'Repository';
         }
 
         return $repository;
@@ -201,7 +202,8 @@ class ServiceMakeCommand extends GeneratorCommand {
      */
     protected function getOptions() {
         return [
-            ['model', 'm', InputOption::VALUE_OPTIONAL, 'Generate a repository class for the given model.']
+            ['model', 'm', InputOption::VALUE_OPTIONAL, 'Generate a repository class for the given model.'],
+            ['folder', 'f', InputOption::VALUE_OPTIONAL, 'Generate a folder for the given name.']
         ];
     }
 }

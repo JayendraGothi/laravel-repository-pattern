@@ -46,7 +46,7 @@ class RepositoryMakeCommand extends GeneratorCommand {
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {
-        return $rootNamespace . '\Repositories';
+        return $rootNamespace . '\Repositories\\' . $this->option('folder');
     }
 
     /**
@@ -84,6 +84,7 @@ class RepositoryMakeCommand extends GeneratorCommand {
         }
 
         return array_merge($replace, [
+            'Folder' => $this->option('folder'),
             'DummyFullModelClass' => $modelClass,
             'DummyModelClass' => class_basename($modelClass)
         ]);
@@ -100,6 +101,7 @@ class RepositoryMakeCommand extends GeneratorCommand {
             throw new InvalidArgumentException('Model name contains invalid characters.');
         }
 
+        $model = "Models/{$this->option('folder')}/". $model;
         $model = trim(str_replace('/', '\\', $model), '\\');
 
         if (!Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
@@ -116,7 +118,8 @@ class RepositoryMakeCommand extends GeneratorCommand {
      */
     protected function getOptions() {
         return [
-            ['model', 'm', InputOption::VALUE_OPTIONAL, 'Generate a repository class for the given model.']
+            ['model', 'm', InputOption::VALUE_OPTIONAL, 'Generate a repository class for the given model.'],
+            ['folder', 'f', InputOption::VALUE_OPTIONAL, 'Generate a folder for the given name.']
         ];
     }
 }
