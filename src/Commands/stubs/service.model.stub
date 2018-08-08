@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Reva\RepositoryPattern\Library\Abstracts\CriteriaBuilder;
-use Reva\RepositoryPattern\Library\Abstracts\Service;
+use Reva\RepositoryPattern\Library\Service;
 use DummyFullRepositoryClass;
 use Illuminate\Database\DatabaseManager;
 

@@ -84,6 +84,16 @@ class ServiceMakeCommand extends GeneratorCommand {
     }
 
     /**
+     * Get the default namespace for the class.
+     *
+     * @param  string $rootNamespace
+     * @return string
+     */
+    protected function getRepositoryNamespace($rootNamespace) {
+        return $rootNamespace . '\Repositories';
+    }
+
+    /**
      * Build the class with the given name.
      *
      * Remove the base controller import if we are already in base namespace.
@@ -98,11 +108,31 @@ class ServiceMakeCommand extends GeneratorCommand {
 
         if ($this->option('model')) {
             $replace = $this->buildModelReplacements($replace);
+            $replace = $this->buildRepositoryReplacements($replace);
         }
 
         return str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
         );
+    }
+
+    /**
+     * Build the model replacement values.
+     *
+     * @param  array $replace
+     * @return array
+     */
+    protected function buildRepositoryReplacements(array $replace) {
+        $repositoryClass = $this->parseRepository($this->option('model'));
+
+        if (!class_exists($repositoryClass)) {
+            $this->error("A {$repositoryClass} model does not exist. Please create one.", true);
+        }
+
+        return array_merge($replace, [
+            'DummyFullRepositoryClass' => $repositoryClass,
+            'DummyRepositoryClass' => class_basename($repositoryClass)
+        ]);
     }
 
     /**
@@ -142,6 +172,26 @@ class ServiceMakeCommand extends GeneratorCommand {
         }
 
         return $model;
+    }
+
+    /**
+     * Get the fully-qualified repository class name.
+     *
+     * @param  string $repository
+     * @return string
+     */
+    protected function parseRepository($repository) {
+        if (preg_match('([^A-Za-z0-9_/\\\\])', $repository)) {
+            throw new InvalidArgumentException('Model name contains invalid characters.');
+        }
+
+        $repository = trim(str_replace('/', '\\', $repository), '\\');
+
+        if (!Str::startsWith($repository, $rootNamespace = $this->getRepositoryNamespace($this->laravel->getNamespace()))) {
+            $repository = $rootNamespace . $repository . 'Repository';
+        }
+
+        return $repository;
     }
 
     /**
