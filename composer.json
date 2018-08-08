@@ -28,7 +28,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Reva\\RepositoryPattern\\Providers\\ConsoleSupportServiceProvider"
+        "Reva\\RepositoryPattern\\Providers\\RepositoryPatternServiceProvider"
       ]
     }
   },
