@@ -7,27 +7,54 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputOption;
 
-class RepositoryMakeCommand extends GeneratorCommand {
+class ServiceMakeCommand extends GeneratorCommand {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'reva:repository';
+    protected $name = 'reva:service';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new repository class';
+    protected $description = 'Create a new service class';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'Repository';
+    protected $type = 'Service';
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle() {
+        $this->createRepository();
+        parent::handle();
+    }
+
+    /**
+     * Create a controller for the model.
+     *
+     * @return void
+     */
+    protected function createRepository() {
+
+        // get model class
+        $modelClass = $this->parseModel($this->option('model'));
+
+        // call repository command
+        $this->call('reva:repository', [
+            'name' => "{$modelClass}Repository",
+            '--model' => $modelClass,
+        ]);
+    }
 
     /**
      * Get the stub file for the generator.
@@ -35,7 +62,14 @@ class RepositoryMakeCommand extends GeneratorCommand {
      * @return string
      */
     protected function getStub() {
-        $stub = '/stubs/repository.model.stub';
+        $stub = null;
+
+        if ($this->option('model')) {
+            $stub = '/stubs/service.model.stub';
+        }
+
+        $stub = $stub ?? '/stubs/service.model.stub';
+
         return __DIR__ . $stub;
     }
 
@@ -46,7 +80,7 @@ class RepositoryMakeCommand extends GeneratorCommand {
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace) {
-        return $rootNamespace . '\Repositories';
+        return $rootNamespace . '\Services';
     }
 
     /**
@@ -59,11 +93,12 @@ class RepositoryMakeCommand extends GeneratorCommand {
      */
     protected function buildClass($name) {
 
-        // prepare replacement array
+        // get use replacements
         $replace = [];
 
-        // prepare model replacement array
-        $replace = $this->buildModelReplacements($replace);
+        if ($this->option('model')) {
+            $replace = $this->buildModelReplacements($replace);
+        }
 
         return str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories\Folder;
+namespace App\Repositories;
 
-use DummyFullModelClass
+use DummyFullModelClass;
 use Reva\RepositoryPattern\Library\Repository;
 
 /**

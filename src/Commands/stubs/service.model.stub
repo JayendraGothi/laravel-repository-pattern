@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Services;
+
+use Reva\RepositoryPattern\Library\Abstracts\CriteriaBuilder;
+use Reva\RepositoryPattern\Library\Abstracts\Service;
+use DummyFullRepositoryClass;
+use Illuminate\Database\DatabaseManager;
+
+/**
+ * Class DummyClass
+ */
+class DummyClass extends Service {
+
+    /**
+     * DummyClass Constructor
+     *
+     * @param DummyRepositoryClass $repository
+     * @param DatabaseManager $db
+     */
+    public function __construct(DummyRepositoryClass $repository, DatabaseManager $db) {
+        parent::__construct($repository, $db);
+    }
+
+    /**
+     * Add basic filters
+     *
+     * @param CriteriaBuilder $builder
+     */
+    public function addBasicFilters(CriteriaBuilder $builder) {
+        // TODO: Implement addBasicFilters() method.
+    }
+}
