@@ -4,6 +4,7 @@ namespace Reva\RepositoryPattern\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Reva\RepositoryPattern\Commands\RepositoryMakeCommand;
+use Reva\RepositoryPattern\Commands\ServiceMakeCommand;
 
 class RepositoryPatternServiceProvider extends ServiceProvider {
 
@@ -15,7 +16,8 @@ class RepositoryPatternServiceProvider extends ServiceProvider {
     public function boot() {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                RepositoryMakeCommand::class
+                RepositoryMakeCommand::class,
+                ServiceMakeCommand::class
             ]);
         }
     }
