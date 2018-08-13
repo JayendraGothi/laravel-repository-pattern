@@ -3,9 +3,9 @@
 namespace Reva\RepositoryPattern\Library\Abstracts;
 
 
-use Reva\RepositoryPattern\Library\Contracts\Criteria;
 use Reva\RepositoryPattern\Library\CommonCriteria\WhereFilter;
 use Reva\RepositoryPattern\Library\CommonCriteria\WithFilter;
+use Reva\RepositoryPattern\Library\Contracts\Criteria;
 use Reva\RepositoryPattern\Library\Service;
 
 class CriteriaBuilder {
@@ -18,12 +18,23 @@ class CriteriaBuilder {
     private $criteriaCollection;
 
     /**
+     * Create builder
+     *
+     * @param Service|null $service
+     * @param array $with
+     * @return CriteriaBuilder
+     */
+    public static function create(Service $service = null, $with = []) {
+        return new CriteriaBuilder($service, $with);
+    }
+
+    /**
      * CriteriaBuilder constructor
      *
      * @param Service $service
      * @param array $with
      */
-    public function __construct(Service $service = null, $with = []) {
+    private function __construct(Service $service = null, $with = []) {
         $this->criteriaCollection = collect();
 
         // if service is set add basic filters
